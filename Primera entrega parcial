@@ -1,3 +1,4 @@
+CREATE DATABASE entrega_preciosclaros;
 USE entrega_preciosclaros;
 
 CREATE TABLE Usuario (
