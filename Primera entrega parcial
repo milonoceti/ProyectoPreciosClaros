@@ -1,6 +1,4 @@
-CREATE database Precios_Claros;
-
-USE Precios_Claros;
+USE entrega_preciosclaros;
 
 CREATE TABLE Usuario (
 ID_usuario INT NOT NULL AUTO_INCREMENT PRIMARY KEY, 
@@ -8,11 +6,23 @@ Nombre_Usuario TEXT(30) NOT NULL,
 Provincia_Usuario TEXT(30) NOT NULL,
 Email_Usuario VARCHAR(30) NOT NULL);
 
+CREATE TABLE Empresa (
+ID_Empresa INT NOT NULL PRIMARY KEY,
+Bandera_Empresa TEXT(15), 
+Razon_Empresa TEXT(15));
+
+CREATE TABLE Fabricante (
+ID_Fabricante INT PRIMARY KEY,
+Nombre_Fabricante TEXT(30), 
+Procedencia_Fabricante TEXT(15));
+
 CREATE TABLE Comercio (
 ID_Comercio INT NOT NULL PRIMARY KEY, 
 Nombre_Comercio TEXT(30) NOT NULL,
 Provincia_Comercio TEXT(15) NOT NULL,
-Franquicia_Comercio TEXT(30) NOT NULL);
+ID_Empresa INT NOT NULL,
+FOREIGN KEY(ID_Empresa) REFERENCES Empresa (ID_Empresa)
+);
 
 CREATE TABLE Categoria (
 ID_Categoria INT NOT NULL PRIMARY KEY,
@@ -21,12 +31,13 @@ Nombre_Categoria TEXT(30) NOT NULL);
 CREATE TABLE Producto (
 ID_Producto INT NOT NULL PRIMARY KEY, 
 Nombre_Producto TEXT(30) NOT NULL,
-Marca_Producto TEXT(30) NOT NULL,
 Presentacion_Producto VARCHAR(30) NOT NULL,
 Precio_Producto NUMERIC(6) NOT NULL,
 Promoción_Producto BOOLEAN NOT NULL,
 ID_Categoria INT NOT NULL,
 ID_Comercio INT NOT NULL,
+ID_Fabricante INT NOT NULL,
+FOREIGN KEY(ID_Fabricante) REFERENCES Fabricante (ID_Fabricante),
 FOREIGN KEY (ID_Categoria) REFERENCES Categoria (ID_Categoria),
 FOREIGN KEY (ID_Comercio) REFERENCES Comercio (ID_Comercio));
 
