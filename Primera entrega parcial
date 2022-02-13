@@ -1,0 +1,42 @@
+CREATE database Precios_Claros;
+
+USE Precios_Claros;
+
+CREATE TABLE Usuario (
+ID_usuario INT NOT NULL AUTO_INCREMENT PRIMARY KEY, 
+Nombre_Usuario TEXT(30) NOT NULL,
+Provincia_Usuario TEXT(30) NOT NULL,
+Email_Usuario VARCHAR(30) NOT NULL);
+
+CREATE TABLE Comercio (
+ID_Comercio INT NOT NULL PRIMARY KEY, 
+Nombre_Comercio TEXT(30) NOT NULL,
+Provincia_Comercio TEXT(15) NOT NULL,
+Franquicia_Comercio TEXT(30) NOT NULL);
+
+CREATE TABLE Categoria (
+ID_Categoria INT NOT NULL PRIMARY KEY,
+Nombre_Categoria TEXT(30) NOT NULL);
+
+CREATE TABLE Producto (
+ID_Producto INT NOT NULL PRIMARY KEY, 
+Nombre_Producto TEXT(30) NOT NULL,
+Marca_Producto TEXT(30) NOT NULL,
+Presentacion_Producto VARCHAR(30) NOT NULL,
+Precio_Producto NUMERIC(6) NOT NULL,
+Promoción_Producto BOOLEAN NOT NULL,
+ID_Categoria INT NOT NULL,
+ID_Comercio INT NOT NULL,
+FOREIGN KEY (ID_Categoria) REFERENCES Categoria (ID_Categoria),
+FOREIGN KEY (ID_Comercio) REFERENCES Comercio (ID_Comercio));
+
+CREATE TABLE Consultas (
+ID_Consulta INT auto_increment PRIMARY KEY NOT NULL,
+Fecha_Consulta DATE NOT NULL,
+ID_Comercio INT NOT NULL,
+ID_Producto INT NOT NULL,
+ID_Usuario INT NOT NULL, 
+FOREIGN KEY(ID_Comercio) REFERENCES Comercio (ID_Comercio), 
+FOREIGN KEY(ID_Producto) REFERENCES Producto (ID_Producto),
+FOREIGN KEY(ID_Usuario) REFERENCES Usuario (ID_Usuario)
+);
