@@ -53,9 +53,16 @@ FOREIGN KEY(ID_Fabricante) REFERENCES Fabricante (ID_Fabricante),
 FOREIGN KEY (ID_Categoria) REFERENCES Categoria (ID_Categoria),
 FOREIGN KEY (ID_Comercio) REFERENCES Comercio (ID_Comercio));
 
-CREATE TABLE Faltante (
-ID_Faltante INT auto_increment PRIMARY KEY NOT NULL,
-Nombre_Faltante TEXT(30) NOT NULL,
+CREATE TABLE ProFaltante (
+ID_ProFaltante INT auto_increment PRIMARY KEY NOT NULL,
+Nombre_ProFaltante TEXT(30) NOT NULL,
+ID_Usuario INT NOT NULL, 
+FOREIGN KEY(ID_Usuario) REFERENCES Usuario (ID_Usuario)
+);
+
+CREATE TABLE CoFaltante (
+ID_CoFaltante INT auto_increment PRIMARY KEY NOT NULL,
+Nombre_CoFaltante TEXT(30) NOT NULL,
 ID_Usuario INT NOT NULL, 
 FOREIGN KEY(ID_Usuario) REFERENCES Usuario (ID_Usuario)
 );
