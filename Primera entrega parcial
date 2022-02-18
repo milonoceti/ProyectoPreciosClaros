@@ -1,11 +1,22 @@
 CREATE DATABASE entrega_preciosclaros;
 USE entrega_preciosclaros;
 
+CREATE TABLE Provincia (
+ID_provincia INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+Nombre_Provincia TEXT(30) NOT NULL);
+
+CREATE TABLE Ciudad (
+ID_Ciudad INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+Nombre_Provincia TEXT(30) NOT NULL,
+ID_provincia INT NOT NULL,
+FOREIGN KEY(ID_provincia) REFERENCES Provincia(ID_provincia));
+
 CREATE TABLE Usuario (
 ID_usuario INT NOT NULL AUTO_INCREMENT PRIMARY KEY, 
 Nombre_Usuario TEXT(30) NOT NULL,
-Provincia_Usuario TEXT(30) NOT NULL,
-Email_Usuario VARCHAR(30) NOT NULL);
+Email_Usuario VARCHAR(30) NOT NULL,
+ID_Ciudad INT NOT NULL,
+FOREIGN KEY(ID_Ciudad) REFERENCES Ciudad (ID_Ciudad));
 
 CREATE TABLE Empresa (
 ID_Empresa INT NOT NULL PRIMARY KEY,
@@ -20,9 +31,10 @@ Procedencia_Fabricante TEXT(15));
 CREATE TABLE Comercio (
 ID_Comercio INT NOT NULL PRIMARY KEY, 
 Nombre_Comercio TEXT(30) NOT NULL,
-Provincia_Comercio TEXT(15) NOT NULL,
 ID_Empresa INT NOT NULL,
-FOREIGN KEY(ID_Empresa) REFERENCES Empresa (ID_Empresa)
+ID_Ciudad INT NOT NULL,
+FOREIGN KEY(ID_Empresa) REFERENCES Empresa (ID_Empresa),
+FOREIGN KEY(ID_Ciudad) REFERENCES Ciudad (ID_Ciudad)
 );
 
 CREATE TABLE Categoria (
@@ -34,7 +46,6 @@ ID_Producto INT NOT NULL PRIMARY KEY,
 Nombre_Producto TEXT(30) NOT NULL,
 Presentacion_Producto VARCHAR(30) NOT NULL,
 Precio_Producto NUMERIC(6) NOT NULL,
-Promoción_Producto BOOLEAN NOT NULL,
 ID_Categoria INT NOT NULL,
 ID_Comercio INT NOT NULL,
 ID_Fabricante INT NOT NULL,
@@ -42,13 +53,9 @@ FOREIGN KEY(ID_Fabricante) REFERENCES Fabricante (ID_Fabricante),
 FOREIGN KEY (ID_Categoria) REFERENCES Categoria (ID_Categoria),
 FOREIGN KEY (ID_Comercio) REFERENCES Comercio (ID_Comercio));
 
-CREATE TABLE Consultas (
-ID_Consulta INT auto_increment PRIMARY KEY NOT NULL,
-Fecha_Consulta DATE NOT NULL,
-ID_Comercio INT NOT NULL,
-ID_Producto INT NOT NULL,
+CREATE TABLE Faltante (
+ID_Faltante INT auto_increment PRIMARY KEY NOT NULL,
+Nombre_Faltante TEXT(30) NOT NULL,
 ID_Usuario INT NOT NULL, 
-FOREIGN KEY(ID_Comercio) REFERENCES Comercio (ID_Comercio), 
-FOREIGN KEY(ID_Producto) REFERENCES Producto (ID_Producto),
 FOREIGN KEY(ID_Usuario) REFERENCES Usuario (ID_Usuario)
 );
