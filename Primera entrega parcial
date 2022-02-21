@@ -7,29 +7,30 @@ Nombre_Provincia TEXT(30) NOT NULL);
 
 CREATE TABLE Ciudad (
 ID_Ciudad INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-Nombre_Provincia TEXT(30) NOT NULL,
+Nombre_Ciudad TEXT(30) NOT NULL,
 ID_provincia INT NOT NULL,
-FOREIGN KEY(ID_provincia) REFERENCES Provincia(ID_provincia));
+FOREIGN KEY(ID_provincia) REFERENCES Provincia(ID_provincia)
+);
 
 CREATE TABLE Usuario (
-ID_usuario INT NOT NULL AUTO_INCREMENT PRIMARY KEY, 
+ID_usuario INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 Nombre_Usuario TEXT(30) NOT NULL,
 Email_Usuario VARCHAR(30) NOT NULL,
 ID_Ciudad INT NOT NULL,
-FOREIGN KEY(ID_Ciudad) REFERENCES Ciudad (ID_Ciudad));
+FOREIGN KEY(ID_Ciudad) REFERENCES Ciudad (ID_Ciudad)
+);
 
 CREATE TABLE Empresa (
-ID_Empresa INT NOT NULL PRIMARY KEY,
-Bandera_Empresa TEXT(15), 
-Razon_Empresa TEXT(15));
-
-CREATE TABLE Fabricante (
-ID_Fabricante INT PRIMARY KEY,
-Nombre_Fabricante TEXT(30), 
-Procedencia_Fabricante TEXT(15));
+ID_Empresa INT NOT NULL auto_increment PRIMARY KEY,
+Bandera_Empresa TEXT(15),
+Razon_Empresa TEXT(15));CREATE TABLE Fabricante (
+ID_Fabricante INT NOT NULL auto_increment PRIMARY KEY,
+Nombre_Fabricante TEXT(30),
+Procedencia_Fabricante TEXT(15)
+);
 
 CREATE TABLE Comercio (
-ID_Comercio INT NOT NULL PRIMARY KEY, 
+ID_Comercio INT NOT NULL auto_increment PRIMARY KEY,
 Nombre_Comercio TEXT(30) NOT NULL,
 ID_Empresa INT NOT NULL,
 ID_Ciudad INT NOT NULL,
@@ -38,31 +39,34 @@ FOREIGN KEY(ID_Ciudad) REFERENCES Ciudad (ID_Ciudad)
 );
 
 CREATE TABLE Categoria (
-ID_Categoria INT NOT NULL PRIMARY KEY,
+ID_Categoria INT NOT NULL auto_increment PRIMARY KEY,
 Nombre_Categoria TEXT(30) NOT NULL);
 
 CREATE TABLE Producto (
-ID_Producto INT NOT NULL PRIMARY KEY, 
+ID_Producto INT NOT NULL auto_increment PRIMARY KEY,
 Nombre_Producto TEXT(30) NOT NULL,
 Presentacion_Producto VARCHAR(30) NOT NULL,
 Precio_Producto NUMERIC(6) NOT NULL,
 ID_Categoria INT NOT NULL,
 ID_Comercio INT NOT NULL,
 ID_Fabricante INT NOT NULL,
+ID_usuario INt NOT NULL,
+FOREIGN KEY(ID_usuario) REFERENCES Usuario (ID_usuario),
 FOREIGN KEY(ID_Fabricante) REFERENCES Fabricante (ID_Fabricante),
 FOREIGN KEY (ID_Categoria) REFERENCES Categoria (ID_Categoria),
-FOREIGN KEY (ID_Comercio) REFERENCES Comercio (ID_Comercio));
+FOREIGN KEY (ID_Comercio) REFERENCES Comercio (ID_Comercio)
+);
 
 CREATE TABLE ProFaltante (
 ID_ProFaltante INT auto_increment PRIMARY KEY NOT NULL,
 Nombre_ProFaltante TEXT(30) NOT NULL,
-ID_Usuario INT NOT NULL, 
-FOREIGN KEY(ID_Usuario) REFERENCES Usuario (ID_Usuario)
+ID_Usuario INT NOT NULL,
+FOREIGN KEY(ID_usuario) REFERENCES Usuario (ID_usuario)
 );
 
 CREATE TABLE CoFaltante (
 ID_CoFaltante INT auto_increment PRIMARY KEY NOT NULL,
 Nombre_CoFaltante TEXT(30) NOT NULL,
-ID_Usuario INT NOT NULL, 
+ID_Usuario INT NOT NULL,
 FOREIGN KEY(ID_Usuario) REFERENCES Usuario (ID_Usuario)
 );
