@@ -46,7 +46,7 @@ CREATE TABLE Producto (
 ID_Producto INT NOT NULL auto_increment PRIMARY KEY,
 Nombre_Producto TEXT(30) NOT NULL,
 Presentacion_Producto VARCHAR(30) NOT NULL,
-Precio_Producto NUMERIC(6) NOT NULL,
+Precio_Producto INT NOT NULL,
 ID_Categoria INT NOT NULL,
 ID_Comercio INT NOT NULL,
 ID_Fabricante INT NOT NULL,
