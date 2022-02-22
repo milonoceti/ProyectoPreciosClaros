@@ -12,3 +12,22 @@ CREATE VIEW productos_ordenados
 AS SELECT ID_producto, Nombre_producto, Precio_Producto
 FROM producto
 ORDER BY Precio_Producto DESC;
+
+CREATE VIEW reclamos_Emanuel
+AS SELECT ID_profaltante, Nombre_profaltante, ID_Usuario 
+FROM profaltante  
+WHERE ID_usuario = 4;
+
+CREATE VIEW usuarios_bonaerenses 
+AS SELECT 
+usuario.ID_usuario,
+usuario.nombre_usuario,
+usuario.id_ciudad,
+ciudad.Nombre_Ciudad
+FROM
+usuario
+INNER JOIN 
+ciudad
+ON 
+usuario.ID_Ciudad = ciudad.ID_Ciudad
+AND usuario.ID_ciudad = 505;
