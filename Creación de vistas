@@ -1,0 +1,9 @@
+CREATE VIEW productos_baratos
+AS SELECT ID_producto, Nombre_Producto, Precio_Producto
+FROM scriptins.producto
+WHERE Precio_Producto <= 100;
+
+CREATE VIEW precios_golosinas
+AS SELECT ID_producto, Nombre_Producto, Precio_producto
+FROM scriptins.producto
+WHERE ID_Categoria = 1001;
