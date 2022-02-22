@@ -1,4 +1,4 @@
-INSERT INTO Provincia VALUES 
+INSERT INTO Provincia (ID_Provincia, Nombre_Provincia) VALUES 
 (300, "Entre rios"),
 (301, "Chubut"),
 (302, "Cordoba"),
@@ -12,14 +12,14 @@ INSERT INTO Provincia VALUES
 (310, "Rio Negro"),
 (311, "Formosa");
 
-INSERT INTO Ciudad VALUES
+INSERT INTO Ciudad (ID_Ciudad, Nombre_Ciudad, ID_Provincia) VALUES
 (501, "Rosario", 307),
 (502, "Puerto Madryn", 301),
 (503, "Concordia", 300),
 (504, "Parana", 300),
 (505, "Buenos Aires", 303),
 (506, "Mendoza", 308),
-(507, "Salta", 309,
+(507, "Salta", 309),
 (508, "Salsipuedes", 302),
 (509, "Bariloche", 310),
 (510, "Ushuaia", 306),
@@ -27,7 +27,7 @@ INSERT INTO Ciudad VALUES
 (512, "Formosa", 311),
 (513, "Corrientes", 305);
 
-INSERT INTO Usuarios VALUES 
+INSERT INTO Usuario (ID_Usuario, Nombre_Usuario, Email_Usuario, ID_Ciudad) VALUES 
 (1,	"DanielCrespo",	"DaniCrespo@gmail.com",	501),
 (2,	"LorenaEsteves",	"LorenaEsteves@gmail.com",	504),
 (3,	"PabloSalas",	"PabloSalas@Gmail.com",	506),
@@ -49,7 +49,7 @@ INSERT INTO Usuarios VALUES
 (19,	"VictoriaPerez",	"Pvictoria@outlook.com",	507),
 (20,	"FaustoBlanco",	"BlancoFausto@outlook.com",	504);
 
-INSERT INTO Empresa VALUES 
+INSERT INTO Empresa (ID_Empresa, Bandera_Empresa, Razon_Empresa) VALUES 
 (701,	"Super Mami",	"Dinosaurio S.A"),
 (702,	"Hipermercado Carrefour",	"INC S.A"),
 (703,	"Express",	"INC S.A"),
@@ -67,7 +67,7 @@ INSERT INTO Empresa VALUES
 (715,	"Vea",	"Jumbo Retail Argentina S.A."),
 (716,	"Disco",	"Jumbo Retail Argentina S.A.");
 
-INSERT INTO Comercio VALUES 
+INSERT INTO Comercio (ID_Comercio, Nombre_Comercio, ID_Empresa, ID_Ciudad) VALUES 
 (901,	"Super Mami Salsipuedes",	701,	508),
 (902,	"Hipermercado Carrefour San Isidro",	702,	505),
 (903,	"Express Salta",	703,	507),
@@ -85,7 +85,7 @@ INSERT INTO Comercio VALUES
 (915,	"Vea Resistencia",	715,	511),
 (916,	"Disco Formosa",	716,	512);
 
-INSERT INTO Categoria VALUES
+INSERT INTO Categoria (ID_Categoria, Nombre_categoria) VALUES
 (1001,	"Golosina"),
 (1002,	"Higiene personal"),
 (1003,	"No perecederos"),
@@ -97,7 +97,30 @@ INSERT INTO Categoria VALUES
 (1009,	"Congelados"),
 (1010,	"Lacteos");
 
-INSERT INTO Productos VALUES 
+INSERT INTO Fabricante (ID_Fabricante, Nombre_Fabricante, Procedencia_Fabricante) VALUES 
+(1501,	"Bagley Argentina S.A.",	"Nacional"),
+(1502,	"Eduli SR",	"Nacional"),
+(1503,	"Mondelez International",	"Exterior"),
+(1504,	"Unilever",	"Exterior"),
+(1505,	"Sancor",	"Nacional"),
+(1506,	"Cadbury-Adams",	"Exterior"),
+(1507,	"Molinos Rio de la Plata",	"Exterior"),
+(1508,	"Jorgito", 	"Nacional"),
+(1509,	"Alimentos Valle Central S.A",	"Nacional"),
+(1510,	"Siscom Argentina S.A",	"Nacional"),
+(1511,	"Compania Americana",	"Exterior"),
+(1512,	"Pernod Ricard",	"Exterior"),
+(1513,	"La lacteo S.A",	"Nacional"),
+(1514,	"Arcor",	"Nacional"),
+(1515,	"Tres Plumas",	"Nacional"),
+(1516,	"Georgalos Hnos. S.A.I.C.A",	"Nacional"),
+(1517,	"Rayito de sol", 	"Nacional"),
+(1518,	"Kraft Foods",	"Exterior"),
+(1519,	"Ayudin",	"Nacional"),
+(1520,	"Producto agricola",	"Nacional"),
+(1521,	"La Paulina",	"Nacional");
+
+INSERT INTO Producto (ID_Producto, Nombre_Producto, Presentacion_Producto, Precio_Producto, ID_Categoria, ID_Comercio, ID_Fabricante, ID_Usuario) VALUES 
 (2001,	"Galletitas Mellizas Bagley", 	"112.0 gr",	188.3,	1005,	 903, 	1501,	1),
 (2002,	"Huevo de Pascuas decorado con Azucar Cannettine", "50.0 gr",	204.65,	1001,	 904, 	1502,	2),
 (2003,	"Alfajor Triple Leche Milka",	"70.0 gr",	204.65,	1001,	 905, 	1503,	3),
@@ -110,17 +133,17 @@ INSERT INTO Productos VALUES
 (2010,	"Caramelos Miel y Limon Halls", 	"28.0 gr",	86.0,	1001,	 906, 	1506,	1),
 (2011,	"Caramelos Miel y Menthol Halls", 	"28.0 gr",	87.0,	1001,	 909, 	1506,	8),
 (2012,	"Fideos al Huevo Tallarines Don Felipe", 	"500.0 gr",	87.0,	1003,	 907, 	1507,	9),
-(2013,	"Jugo de Limon Minerva", 	250.0 ml",	99.95,	1003,	 906,	1507,	10),
+(2013,	"Jugo de Limon Minerva", 	"250.0 ml",	99.95,	1003,	 906,	1507,	10),
 (2014,	"Alfajores Frutados Jorgito", 	"50.0 gr",	96.72,	1001,	 905, 	1508,	10),
 (2015,	"Alfajor con BanÌƒo de Chocolate Jorgito", 	"55.0 gr",	87.5,	1001,	 905, 	1508,	10),
 (2016,	"Alfajores Blanco Jorgito", 	"50.0 gr",	100.0,	1001,	 909, 	1508,	10),
 (2017,	"Turron de Mani Blando con Miel Cannettine",	"120.0 gr",	99.0,	1001,	 909, 	1502,	11),
-(2018,	"Whisky Los Criadores", 	"195.0 cc",	87.5	1004,	 908, 	1509,	12),
+(2018,	"Whisky Los Criadores", 	"195.0 cc",	87.5,	1004,	 908, 	1509,	12),
 (2019,	"Fideos Spaghetti Terrabusi", "500.0 gr",	99.0,	1003,	 907, 	1503,	13),
 (2020,	"Desodorante Antitranspirante en Crema Noveltex", "60.0 gr",	100.0,	1002,	 906, 	1510,	14),
 (2021,	"Caramelos Masticables Sabor Tuti Frutti Lenguetazo",	"13.0 gr",	87.5,	1001,	 904, 	1503,	15),
 (2022,	"Caramelos Masticables Frambuesa Stani Lenguetazo",	"13.0 gr",	285.0,	1001,	 905 ,	1503,	15),
-(2023,	"Alfajor Negro Nevares", "45.0 gr",	245.0	1001,	 903, 	1511,	6),
+(2023,	"Alfajor Negro Nevares", "45.0 gr",	245.0,	1001,	 903, 	1511,	6),
 (2024,	"Licor de Menta Cusenier", 	"200.0 ml",	249.0,	1004,	 902, 1512,	5),
 (2025,	"Alfajor Tita",	"36.0 gr",	249.0,	1001,	 903, 1503,	7),
 (2026,	"Licor de Cafe Cognac Cusenier",	"200.0 ml",	325.0, 1004,	 904,	1512,	16),
@@ -137,7 +160,7 @@ INSERT INTO Productos VALUES
 (2037,	"Chocolate Relleno Frutilla Cadbury",	"27.0 gr",	449.0,	1005,	907, 	1506,	1),
 (2038,	"Chocolate Mani Sapito Arcor", 	"10.0 gr",	449.0,	1001,	 906,	1514,	4),
 (2039,	"Licor de Dulce de Leche Tres Plumas", 	"200.0 cc",	445.0,	1004,	905, 	1515,	5),
-(2040,	"Tableta de Chocolate Shot", 	"35.0 gr",	655.0,	1001,	 917, 1516,	8),
+(2040,	"Tableta de Chocolate Shot", 	"35.0 gr",	655.0,	1001,	 916, 1516, 8),
 (2041,	"Emulsion Autobronceante Rayito de Sol", "130.0 gr",	579.0,	1002,	 912, 	1517,	7),
 (2042,	"Alfajor con Chips Triple Pepitos", 	"57.0 gr",	609.0,	1001,	 913, 1518,	3),
 (2043,	"Barra de Cereales con Manzana Cereal Mix",	"23.0 gr",	163.0,	1001,	 914, 	1514,	19),
@@ -149,8 +172,8 @@ INSERT INTO Productos VALUES
 (2049,	"Lavandina ayudin",	"250ml", 173.95,	1006,	 916, 1519,	5),
 (2050,	"Queso Senda en Sobre",	"1kg",	299.99,	1010,	 915, 1521,	4);
 
-INSERT INTO ProFaltante VALUES 
-(1100, "Dulce de Leche Castelmar"	4),
+INSERT INTO ProFaltante (ID_ProFaltante, Nombre_ProFaltante, ID_Usuario) VALUES
+(1100, "Dulce de Leche Castelmar", 4),
 (1101, "Bolsas Verdes esteban", 	5),
 (1102, "Aceto Balsamico en Botella Mazzetti",	6),
 (1103, "Repelente de Insectos Crema Off",	3),
@@ -169,9 +192,9 @@ INSERT INTO ProFaltante VALUES
 (1126, "Energizante Sugar Free Red Bull", 	9),
 (1127, "Desodorante Atitranspirante Nivea",  	10),
 (1128, "Crema Nivea Soft",	8),
-(1129, "Gel de Limpieza Exfoliante Nivea",	8),
+(1129, "Gel de Limpieza Exfoliante Nivea",	8);
 
-INSERT INTO CoFaltante VALUES 
+INSERT INTO CoFaltante (ID_CoFaltante, Nombre_CoFaltante, ID_Usuario) VALUES
 (1301,	"DEHEZA S.A.I.C.F. e I",	6),
 (1302,	"MUCOOP CAP.SARMIENTO",	7),
 (1303,	"SuperCLC",	3),
@@ -180,28 +203,5 @@ INSERT INTO CoFaltante VALUES
 (1306,	"Supermercados Cordiez",	1),
 (1307,	"Abastecimiento Mercamax",	5),
 (1308,	"Cooperativa Obrera Limitada de Consumo y Vivienda",	10),
-(1309,	"Topsy",	9),
-(1310,	"Toledo",	8);
-
-INSERT INTO Fabricante VALUES 
-(1501,	"Bagley Argentina S.A.",	"Nacional"),
-(1502,	"Eduli SR",	"Nacional"),
-(1503,	"Mondelez International",	"Exterior"),
-(1504,	"Unilever",	"Exterior),
-(1505,	"Sancor",	"Nacional"),
-(1506,	"Cadbury-Adams",	"Exterior",),
-(1507,	"Molinos Rio de la Plata",	"Exterior"),
-(1508,	"Jorgito", 	"Nacional"),
-(1509,	"Alimentos Valle Central S.A",	"Nacional"),
-(1510,	"Siscom Argentina S.A",	"Nacional"),
-(1511,	"Compania Americana",	"Exterior"),
-(1512,	"Pernod Ricard",	"Exterior"),
-(1513,	"La lacteo S.A",	"Nacional"),
-(1514,	"Arcor",	"Nacional"),
-(1515,	"Tres Plumas",	"Nacional"),
-(1516,	"Georgalos Hnos. S.A.I.C.A",	"Nacional"),
-(1517,	"Rayito de sol", 	"Nacional"),
-(1518,	"Kraft Foods",	"Exterior"),
-(1519,	"Ayudin",	"Nacional"),
-(1520,	"Producto agricola",	"Nacional"),
-(1521,	"La Paulina",	"Nacional");
+(1309,	"Topsy", 9),
+(1310,	"Toledo", 8);
