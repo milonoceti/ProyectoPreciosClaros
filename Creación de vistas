@@ -7,3 +7,8 @@ CREATE VIEW precios_golosinas
 AS SELECT ID_producto, Nombre_Producto, Precio_producto
 FROM scriptins.producto
 WHERE ID_Categoria = 1001;
+
+CREATE VIEW productos_ordenados
+AS SELECT ID_producto, Nombre_producto, Precio_Producto
+FROM producto
+ORDER BY Precio_Producto DESC;
