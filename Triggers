@@ -1,0 +1,70 @@
+#Trigger que regristra en una tabla auxiliar cada vez que un modificador agrega registros a la tabla producto#
+
+DROP TABLE IF exists movimientos_productos_log;
+
+create table movimientos_productos_log (
+id_movimiento INT NOT NULL auto_increment, 
+hora_modificacion INT NOT NULL,
+fecha_modificacion date not null,
+modificador_id varchar(15),
+id_producto int,
+nombre_producto tinytext,
+Presentacion_producto varchar(30),
+Precio_producto int, 
+tipo_operacion tinytext,
+primary key (id_movimiento)
+);
+
+DROP TRIGGER IF EXISTS t_movimientos_productos;
+
+CREATE TRIGGER t_movimientos_productos
+AFTER INSERT ON producto
+FOR EACH ROW
+INSERT INTO movimientos_productos_log 
+(id_movimiento, hora_modificacion, fecha_modificacion, MODIFICADOR_id, ID_Producto, Nombre_Producto, Presentacion_Producto , Precio_Producto, tipo_operacion)
+VALUES 
+(null, curtime(), curdate(), SESSION_USER(), new.ID_Producto, new.Nombre_Producto, new.Presentacion_Producto, new.Precio_Producto, 'INSERT');
+
+
+INSERT INTO Producto (Nombre_Producto, Presentacion_Producto, Precio_Producto, ID_Categoria, ID_Comercio, ID_Fabricante, ID_Usuario) VALUES 
+("Galletitas xxx", 	"112.0 gr",	188.3,	1005,	 903, 	1501,	1);
+
+SELECT * FROM producto;
+SELECT * FROM MOVIMIENTOS_PRODUCTOS_LOG;
+
+##
+
+DROP TABLE IF exists eliminacion_profaltante_log;
+
+create table eliminacion_profaltante_log (
+id_eliminacion INT NOT NULL auto_increment, 
+hora_modificacion INT NOT NULL,
+fecha_modificacion date not null,
+modificador_id varchar(15),
+id_profaltante int,
+nombre_profaltante tinytext,
+id_usuario int, 
+primary key (id_eliminacion)
+);
+
+DROP TRIGGER IF EXISTS t_eliminacion_profaltante;
+
+CREATE TRIGGER t_eliminacion_profaltante
+BEFORE DELETE ON profaltante
+FOR EACH ROW
+INSERT INTO eliminacion_profaltante_log
+(id_eliminacion, 
+hora_modificacion,
+fecha_modificacion ,
+modificador_id ,
+id_profaltante,
+nombre_profaltante ,
+id_usuario)
+VALUES 
+(null, curtime(), curdate(), SESSION_USER(), old.id_profaltante, old.nombre_profaltante, old.id_usuario);
+
+DELETE FROM profaltante where ID_ProFaltante = 1129;
+
+SELECT * FROM profaltante;
+SELECT * FROM eliminacion_profaltante_log;
+
