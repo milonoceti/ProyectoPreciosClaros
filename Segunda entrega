@@ -313,8 +313,9 @@ ON
 usuario.ID_Ciudad = ciudad.ID_Ciudad
 AND usuario.ID_ciudad = 505;
 
-CREATE FUNCTION `consulta_producto`(ID_producto INT) 
-RETURNS varchar(30) 
+DELIMITER //
+
+CREATE DEFINER=`root`@`localhost` FUNCTION `consulta_producto`(ID_producto INT) RETURNS varchar(30) CHARSET utf8mb4
     READS SQL DATA
 BEGIN 
 DECLARE resultado VARCHAR (30);
@@ -323,8 +324,9 @@ FROM producto where entrega_preciosclaros.producto.id_producto = ID_producto);
 RETURN resultado;
 END;
 
-CREATE FUNCTION `montos1`(ID_producto INT, monto INT) 
-RETURNS tinytext 
+DELIMITER //
+
+CREATE DEFINER=`root`@`localhost` FUNCTION `montos1`(ID_producto INT, monto INT) RETURNS tinytext CHARSET utf8mb4
     READS SQL DATA
 BEGIN 
 DECLARE resultado tinytext;
@@ -332,7 +334,9 @@ SET resultado = (SELECT if(precio_producto <= monto, "true", "false")
 FROM producto
 where entrega_preciosclaros.producto.ID_producto = ID_producto);
 RETURN resultado;
-END;
+END; 
+
+//
 
 #La idea de esta función es que sabiendo el ID del producto se pueda saber el nombre de dicho producto#
 SELECT consulta_producto (2001) as consulta;
@@ -343,12 +347,14 @@ SELECT montos1 (2001, 100) as monto;
 # Con este SP es posible agregar Comercios Faltantes a la tabla Cofaltante#
 
 DELIMITER //
-CREATE DEFINER=`root`@`localhost` PROCEDURE `agregar_Cofaltante`(in Nombre_CoFaltante1 tinytext,
-in ID_usuario1 int)
+
+CREATE PROCEDURE `agregar_Cofaltante` 
+(in Nombre_CoFaltante1 tinytext, in ID_usuario1 int)
 BEGIN
 INSERT INTO Cofaltante (Nombre_CoFaltante, ID_usuario) 
 VALUES (Nombre_CoFaltante1, ID_usuario1);
-END
+END;
+
 //
 
 CALL agregar_Cofaltante ('Supermami', 10);
@@ -357,6 +363,7 @@ SELECT * FROM Cofaltante ORDER BY ID_CoFaltante desc;
 #Con este SP es posible ordenar de manera ascendente los productos según las distintas columnas# 
 
  DELIMITER //
+ 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_productos_ordenados`(IN parametro varchar(20))
 BEGIN
 IF parametro <> '' THEN
@@ -368,7 +375,8 @@ IF parametro <> '' THEN
     PREPARE ejecutar from @clausula1;
 	EXECUTE ejecutar;
     DEALLOCATE PREPARE ejecutar;
-END
+END;
+
 //
 
 CALL sp_productos_ordenados('precio_producto');
@@ -408,13 +416,13 @@ INSERT INTO Producto (Nombre_Producto, Presentacion_Producto, Precio_Producto, I
 SELECT * FROM producto;
 SELECT * FROM MOVIMIENTOS_PRODUCTOS_LOG;
 
-##
+#Trigger que registra en una tabla auxiliar cuando se elimina un registro en la tabla de productos faltantes, esto asegura que no se elimine un reclamo sin ser revisado#
 
 DROP TABLE IF exists eliminacion_profaltante_log;
 
 create table eliminacion_profaltante_log (
 id_eliminacion INT NOT NULL auto_increment, 
-hora_modificacion INT NOT NULL,
+hora_modificacion time NOT NULL,
 fecha_modificacion date not null,
 modificador_id varchar(15),
 id_profaltante int,
