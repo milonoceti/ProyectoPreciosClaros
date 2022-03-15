@@ -1,0 +1,311 @@
+CREATE DATABASE TCL_PRECIOSCLAROS;
+USE TCL_PRECIOSCLAROS;
+
+CREATE TABLE Provincia (
+ID_provincia INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+Nombre_Provincia TEXT(30) NOT NULL);
+
+CREATE TABLE Ciudad (
+ID_Ciudad INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+Nombre_Ciudad TEXT(30) NOT NULL,
+ID_provincia INT NOT NULL,
+FOREIGN KEY(ID_provincia) REFERENCES Provincia(ID_provincia)
+);
+
+CREATE TABLE Usuario (
+ID_usuario INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+Nombre_Usuario TEXT(30) NOT NULL,
+Email_Usuario VARCHAR(30) NOT NULL,
+ID_Ciudad INT NOT NULL,
+FOREIGN KEY(ID_Ciudad) REFERENCES Ciudad (ID_Ciudad)
+);
+
+CREATE TABLE Empresa (
+ID_Empresa INT NOT NULL auto_increment PRIMARY KEY,
+Bandera_Empresa TEXT(15),
+Razon_Empresa TEXT(15));CREATE TABLE Fabricante (
+ID_Fabricante INT NOT NULL auto_increment PRIMARY KEY,
+Nombre_Fabricante TEXT(30),
+Procedencia_Fabricante TEXT(15)
+);
+
+CREATE TABLE Comercio (
+ID_Comercio INT NOT NULL auto_increment PRIMARY KEY,
+Nombre_Comercio TEXT(30) NOT NULL,
+ID_Empresa INT NOT NULL,
+ID_Ciudad INT NOT NULL,
+FOREIGN KEY(ID_Empresa) REFERENCES Empresa (ID_Empresa),
+FOREIGN KEY(ID_Ciudad) REFERENCES Ciudad (ID_Ciudad)
+);
+
+CREATE TABLE Categoria (
+ID_Categoria INT NOT NULL auto_increment PRIMARY KEY,
+Nombre_Categoria TEXT(30) NOT NULL);
+
+CREATE TABLE Producto (
+ID_Producto INT NOT NULL auto_increment PRIMARY KEY,
+Nombre_Producto TEXT(30) NOT NULL,
+Presentacion_Producto VARCHAR(30) NOT NULL,
+Precio_Producto INT NOT NULL,
+ID_Categoria INT NOT NULL,
+ID_Comercio INT NOT NULL,
+ID_Fabricante INT NOT NULL,
+ID_usuario INt NOT NULL,
+FOREIGN KEY(ID_usuario) REFERENCES Usuario (ID_usuario),
+FOREIGN KEY(ID_Fabricante) REFERENCES Fabricante (ID_Fabricante),
+FOREIGN KEY (ID_Categoria) REFERENCES Categoria (ID_Categoria),
+FOREIGN KEY (ID_Comercio) REFERENCES Comercio (ID_Comercio)
+);
+
+CREATE TABLE ProFaltante (
+ID_ProFaltante INT auto_increment PRIMARY KEY NOT NULL,
+Nombre_ProFaltante TEXT(30) NOT NULL,
+ID_Usuario INT NOT NULL,
+FOREIGN KEY(ID_usuario) REFERENCES Usuario (ID_usuario)
+);
+
+CREATE TABLE CoFaltante (
+ID_CoFaltante INT auto_increment PRIMARY KEY NOT NULL,
+Nombre_CoFaltante TEXT(30) NOT NULL,
+ID_Usuario INT NOT NULL,
+FOREIGN KEY(ID_Usuario) REFERENCES Usuario (ID_Usuario)
+);
+
+INSERT INTO Provincia (ID_Provincia, Nombre_Provincia) VALUES 
+(300, "Entre rios"),
+(301, "Chubut"),
+(302, "Cordoba"),
+(303, "Buenos Aires"),
+(304, "Chaco"),
+(305, "Corrientes"),
+(306, "Tierra del Fuego"),
+(307, "Santa Fe"),
+(308, "Mendoza"),
+(309, "Salta"),
+(310, "Rio Negro"),
+(311, "Formosa");
+
+INSERT INTO Ciudad (ID_Ciudad, Nombre_Ciudad, ID_Provincia) VALUES
+(501, "Rosario", 307),
+(502, "Puerto Madryn", 301),
+(503, "Concordia", 300),
+(504, "Parana", 300),
+(505, "Buenos Aires", 303),
+(506, "Mendoza", 308),
+(507, "Salta", 309),
+(508, "Salsipuedes", 302),
+(509, "Bariloche", 310),
+(510, "Ushuaia", 306),
+(511, "Resistencia", 304),
+(512, "Formosa", 311),
+(513, "Corrientes", 305);
+
+INSERT INTO Usuario (ID_Usuario, Nombre_Usuario, Email_Usuario, ID_Ciudad) VALUES 
+(1,	"DanielCrespo",	"DaniCrespo@gmail.com",	501),
+(2,	"LorenaEsteves",	"LorenaEsteves@gmail.com",	504),
+(3,	"PabloSalas",	"PabloSalas@Gmail.com",	506),
+(4,	"EmanuelCastro",	"EmaCastro@gmail.com",	508),
+(5,	"MiguelVergara",	"MigueVergara@gmail.com",	510),
+(6,	"CarlaFuentes",	"Carli1@gmail.com",	513),
+(7,	"ErnestoPalma",	"Ernestoo@gmail.com",	505),
+(8,	"GuadalupeAraujo",	"AraujoG@gmail.com",	505),
+(9,	"BeatrizBou",	"BeatrizBou@gmail.com",	505),
+(10,	"RamiroDuque",	"RamiroDuque@gmail.com",	505),
+(11,	"TeresaCoronado",	"TeresaCoronado@gmail.com",	511),
+(12,	"MariaAvila",	"AvilaMaria@hotmail.com",	502),
+(13,	"EmiliaVarela",	"Emi21@hotmail.com",	503),
+(14,	"MarisolPerales",	"PeralesM@hotmail.com",	509),
+(15,	"ValentinBeltran",	"Bvalentin@yahoo.com",	510),
+(16,	"CesarRoldan",	"RoldanCesar@yahoo.com",	502),
+(17,	"JuanHernandez",	"Hernandez12@yahoo.com",	501),
+(18,	"JuliaNunes",	"NuJuli@outlook.com",	506),
+(19,	"VictoriaPerez",	"Pvictoria@outlook.com",	507),
+(20,	"FaustoBlanco",	"BlancoFausto@outlook.com",	504);
+
+INSERT INTO Empresa (ID_Empresa, Bandera_Empresa, Razon_Empresa) VALUES 
+(701,	"Super Mami",	"Dinosaurio S.A"),
+(702,	"Hipermercado Carrefour",	"INC S.A"),
+(703,	"Express",	"INC S.A"),
+(704,	"Market",	"INC S.A"),
+(705,	"Changomas",	"WalMart Argentina S.R.L"),
+(706,	"Walmart SuperCenter",	"WalMart Argentina S.R.L"),
+(707,	"COTO CICSA",	"Coto Centro Integral de Comercializacion S.A."),
+(708,	"Supermercados DIA",	"DIA Argentina S.A"),
+(709,	"Hipermercado Libertad",	"Libertad S.A"),
+(710,	"Mini Libertad",	"Libertad S.A"),
+(711,	"Atomo",	"Millan S.A."),
+(712,	"Super Aiello", "Supermercados S.A."),
+(713,	"La Anonima",	"S.A. Importadora y Exportadora de la Patagonia"),
+(714,	"Simplicity",	"Farmacity S.A."),
+(715,	"Vea",	"Jumbo Retail Argentina S.A."),
+(716,	"Disco",	"Jumbo Retail Argentina S.A.");
+
+INSERT INTO Comercio (ID_Comercio, Nombre_Comercio, ID_Empresa, ID_Ciudad) VALUES 
+(901,	"Super Mami Salsipuedes",	701,	508),
+(902,	"Hipermercado Carrefour San Isidro",	702,	505),
+(903,	"Express Salta",	703,	507),
+(904,	"Market Bariloche",	704,	509),
+(905,	"Changomas Ushuaia",	705,	510),
+(906,	"Walmart SuperCenter Corrientes",	706,	513),
+(907,	"COTO CICSA Hurlingham",	707,	505),
+(908,	"Supermercados DIA Avellanesa",	708,	505),
+(909,	"Hipermercado Libertad Parana",	709,	504),
+(910,	"Mini Libertad Concordia",	710,	503),
+(911,	"Atomo Mendoza",	711,	506),
+(912,	"Super Aiello Rosario",	712,	501),
+(913,	"La Anonima Puerto Madryn",	713,	502),
+(914,	"Simplicity Quilmes",	714,	505),
+(915,	"Vea Resistencia",	715,	511),
+(916,	"Disco Formosa",	716,	512);
+
+INSERT INTO Categoria (ID_Categoria, Nombre_categoria) VALUES
+(1001,	"Golosina"),
+(1002,	"Higiene personal"),
+(1003,	"No perecederos"),
+(1004,	"Bebidas alcoholicas"),
+(1005,	"Galletas"),
+(1006,	"Limpieza del hogar"),
+(1007,	"Carnes"),
+(1008,	"Verduras"),
+(1009,	"Congelados"),
+(1010,	"Lacteos");
+
+INSERT INTO Fabricante (ID_Fabricante, Nombre_Fabricante, Procedencia_Fabricante) VALUES 
+(1501,	"Bagley Argentina S.A.",	"Nacional"),
+(1502,	"Eduli SR",	"Nacional"),
+(1503,	"Mondelez International",	"Exterior"),
+(1504,	"Unilever",	"Exterior"),
+(1505,	"Sancor",	"Nacional"),
+(1506,	"Cadbury-Adams",	"Exterior"),
+(1507,	"Molinos Rio de la Plata",	"Exterior"),
+(1508,	"Jorgito", 	"Nacional"),
+(1509,	"Alimentos Valle Central S.A",	"Nacional"),
+(1510,	"Siscom Argentina S.A",	"Nacional"),
+(1511,	"Compania Americana",	"Exterior"),
+(1512,	"Pernod Ricard",	"Exterior"),
+(1513,	"La lacteo S.A",	"Nacional"),
+(1514,	"Arcor",	"Nacional"),
+(1515,	"Tres Plumas",	"Nacional"),
+(1516,	"Georgalos Hnos. S.A.I.C.A",	"Nacional"),
+(1517,	"Rayito de sol", 	"Nacional"),
+(1518,	"Kraft Foods",	"Exterior"),
+(1519,	"Ayudin",	"Nacional"),
+(1520,	"Producto agricola",	"Nacional"),
+(1521,	"La Paulina",	"Nacional");
+
+INSERT INTO Producto (ID_Producto, Nombre_Producto, Presentacion_Producto, Precio_Producto, ID_Categoria, ID_Comercio, ID_Fabricante, ID_Usuario) VALUES 
+(2001,	"Galletitas Mellizas Bagley", 	"112.0 gr",	188.3,	1005,	 903, 	1501,	1),
+(2002,	"Huevo de Pascuas decorado con Azucar Cannettine", "50.0 gr",	204.65,	1001,	 904, 	1502,	2),
+(2003,	"Alfajor Triple Leche Milka",	"70.0 gr",	204.65,	1001,	 905, 	1503,	3),
+(2004,	"Alfajor Mousse Triple Milka", 	"55.0 gr",	204.49,	1001,	 907, 	1503,	4),
+(2005,	"Alfajor Triple Dulce de Leche Terrabusi", 	"70.0 gr",	163.0,	1001,	 907, 	1503,	5),
+(2006,	"Alfajor Triple Torta Terrabusi", 	"70.0 gr",	163.0,	1001,	 901, 	1503,	6),
+(2007,	"Desodorante Antitranspirante Aero Antibacterial Rexona",	"56.0 gr",	163.0,	1002,	 901, 	1504,	6),
+(2008,	"Gelatina Shimy", 	"110.0 gr",	87.0,	1001,	 910, 	1505,	7),
+(2009,	"Pastilla La Yapa" ,	"17.0 gr", 100.0,	1001,	 911, 	1503,	6),
+(2010,	"Caramelos Miel y Limon Halls", 	"28.0 gr",	86.0,	1001,	 906, 	1506,	1),
+(2011,	"Caramelos Miel y Menthol Halls", 	"28.0 gr",	87.0,	1001,	 909, 	1506,	8),
+(2012,	"Fideos al Huevo Tallarines Don Felipe", 	"500.0 gr",	87.0,	1003,	 907, 	1507,	9),
+(2013,	"Jugo de Limon Minerva", 	"250.0 ml",	99.95,	1003,	 906,	1507,	10),
+(2014,	"Alfajores Frutados Jorgito", 	"50.0 gr",	96.72,	1001,	 905, 	1508,	10),
+(2015,	"Alfajor con BanÌƒo de Chocolate Jorgito", 	"55.0 gr",	87.5,	1001,	 905, 	1508,	10),
+(2016,	"Alfajores Blanco Jorgito", 	"50.0 gr",	100.0,	1001,	 909, 	1508,	10),
+(2017,	"Turron de Mani Blando con Miel Cannettine",	"120.0 gr",	99.0,	1001,	 909, 	1502,	11),
+(2018,	"Whisky Los Criadores", 	"195.0 cc",	87.5,	1004,	 908, 	1509,	12),
+(2019,	"Fideos Spaghetti Terrabusi", "500.0 gr",	99.0,	1003,	 907, 	1503,	13),
+(2020,	"Desodorante Antitranspirante en Crema Noveltex", "60.0 gr",	100.0,	1002,	 906, 	1510,	14),
+(2021,	"Caramelos Masticables Sabor Tuti Frutti Lenguetazo",	"13.0 gr",	87.5,	1001,	 904, 	1503,	15),
+(2022,	"Caramelos Masticables Frambuesa Stani Lenguetazo",	"13.0 gr",	285.0,	1001,	 905 ,	1503,	15),
+(2023,	"Alfajor Negro Nevares", "45.0 gr",	245.0,	1001,	 903, 	1511,	6),
+(2024,	"Licor de Menta Cusenier", 	"200.0 ml",	249.0,	1004,	 902, 1512,	5),
+(2025,	"Alfajor Tita",	"36.0 gr",	249.0,	1001,	 903, 1503,	7),
+(2026,	"Licor de Cafe Cognac Cusenier",	"200.0 ml",	325.0, 1004,	 904,	1512,	16),
+(2027,	"Crema Sapolan Dubarry",	"280.0 cc",	339.0,	1002,	906, 	1510,	7),
+(2028,	"Sapolan Color Dubarry", 	"280.0 gr",	229.0,	1002,	905, 	1510,	8),
+(2029,	"Flan Dulce de Leche en Pote La Lacteo", 	"1.0 un",	219.0,	1001,	 904, 	1513,	2),
+(2030,	"Alfajor Negro Mogy", 	"21.0 gr",	215.0,	1001, 902, 	1511,	17),
+(2031,	"Galletita Amor Bagley",	"112.0 gr",	219.0,	1005,	901, 1501,	18),
+(2032,	"Caramelos Strong Menthoplus", "30.6 gr",	100.99,	1001,	 902, 	1514,	19),
+(2033,	"Conejo de Pascua Rocklets",	"110.0 gr",	122.75,	1001,	 903, 	1514,	20),
+(2034,	"Alfajor Blanco Mogy",	"21.0 gr",	439.0,	1001,	 905, 	1511,	20),
+(2035,	"Galletitas Banadas con Chocolate Oreo", "17.0 gr",	505.0,	1005,	 906 ,	1503,	20),
+(2036,	"Galletitas Banadas con Chocolate Blanco Oreo",	"204.0 gr",	499.0, 1005,	 908, 	1503,	1),
+(2037,	"Chocolate Relleno Frutilla Cadbury",	"27.0 gr",	449.0,	1005,	907, 	1506,	1),
+(2038,	"Chocolate Mani Sapito Arcor", 	"10.0 gr",	449.0,	1001,	 906,	1514,	4),
+(2039,	"Licor de Dulce de Leche Tres Plumas", 	"200.0 cc",	445.0,	1004,	905, 	1515,	5),
+(2040,	"Tableta de Chocolate Shot", 	"35.0 gr",	655.0,	1001,	 916, 1516, 8),
+(2041,	"Emulsion Autobronceante Rayito de Sol", "130.0 gr",	579.0,	1002,	 912, 	1517,	7),
+(2042,	"Alfajor con Chips Triple Pepitos", 	"57.0 gr",	609.0,	1001,	 913, 1518,	3),
+(2043,	"Barra de Cereales con Manzana Cereal Mix",	"23.0 gr",	163.0,	1001,	 914, 	1514,	19),
+(2044,	"Chocolate Milka Leger Leche", 	"45.0 gr",	161.0,	1001,	 915,	1503,	17),
+(2045,	"Chocolate Milka Leger Almendras", 	"45.0 gr",	172.79,	1001,	 916,	1503,	15),
+(2046,	"Chicles Fruta Top Line", 	"6.7 gr",	162.99,	1001,	 911, 1514,	1),
+(2047,	"Carne picada comun",	"1kg",	162.99,	1007,	 910, 1520,	7),
+(2048,	"Papa lavada", "1kg",	50.24,	1008,	 910, 	1520,6),
+(2049,	"Lavandina ayudin",	"250ml", 173.95,	1006,	 916, 1519,	5),
+(2050,	"Queso Senda en Sobre",	"1kg",	299.99,	1010,	 915, 1521,	4);
+
+INSERT INTO ProFaltante (ID_ProFaltante, Nombre_ProFaltante, ID_Usuario) VALUES
+(1100, "Dulce de Leche Castelmar", 4),
+(1101, "Bolsas Verdes esteban", 	5),
+(1102, "Aceto Balsamico en Botella Mazzetti",	6),
+(1103, "Repelente de Insectos Crema Off",	3),
+(1114, "Manteca Ilolay",	4),
+(1115, "Jabon Glicerina Neutro Nogaly", 	2),
+(1116, "Huevo de Chocolate Sorpresa Kinder", 	6),
+(1117, "Mostaza Fuerte Khune", 	7),
+(1118, "Caramelos Strong Zero Menthoplus", 	9),
+(1119, "Shampoo Crema Balance Sedal", 	8),
+(1120, "Cerveza Rubia Lowenbrau", 	7),
+(1121, "Salsa Gourmet Steak Khune", 	4),
+(1122, "Sal Fina Light Salero Celusal", 	5),
+(1123, "Huevo de Chocolate con Leche Rocklets",	6),
+(1124, "Cerveza Rubia en Lata Konig Pilsener", 	3),
+(1125, "Cerveza Rubia en Lata Draft Bitburger",	4),
+(1126, "Energizante Sugar Free Red Bull", 	9),
+(1127, "Desodorante Atitranspirante Nivea",  	10),
+(1128, "Crema Nivea Soft",	8),
+(1129, "Gel de Limpieza Exfoliante Nivea",	8);
+
+INSERT INTO CoFaltante (ID_CoFaltante, Nombre_CoFaltante, ID_Usuario) VALUES
+(1301,	"DEHEZA S.A.I.C.F. e I",	6),
+(1302,	"MUCOOP CAP.SARMIENTO",	7),
+(1303,	"SuperCLC",	3),
+(1304,	"SUPERMERCADOS EL NENE",	1),
+(1305,	"California Supermercados",	2),
+(1306,	"Supermercados Cordiez",	1),
+(1307,	"Abastecimiento Mercamax",	5),
+(1308,	"Cooperativa Obrera Limitada de Consumo y Vivienda",	10),
+(1309,	"Topsy", 9),
+(1310,	"Toledo", 8);
+
+
+START TRANSACTION;
+DELETE FROM Cofaltante
+WHERE 
+    ID_Cofaltante = 1310;
+
+SELECT * FROM Cofaltante;
+ROLLBACK;
+COMMIT;
+
+START TRANSACTION;
+INSERT INTO productos 
+    (ID_Producto, Nombre_Producto, Presentacion_Producto, Precio_Producto, ID_CategoriaL, ID_Comercio, ID_Fabricante, ID_usuario)
+VALUES
+    (2050,	"Desodorante Antitranspirante Veritas", "60.0 gr",	100.0,	1002,	 906, 	1510,	14),
+(2051,	"Caramelos Masticables Sugus",	"13.0 gr",	87.5,	1001,	 904, 	1503,	15),
+(2052,	"Caramelos Masticables de miel",	"13.0 gr",	285.0,	1001,	 905 ,	1503,	15),
+(2053,	"Alfajor Negro Nevares", "45.0 gr",	245.0,	1001,	 903, 	1511,	6),
+(2054,	"Licor de Melon Cusenier", 	"200.0 ml",	249.0,	1004,	 902, 1512,	5),
+SAVEPOINT lote_1_4;
+(2055,	"Alfajor Ser",	"36.0 gr",	249.0,	1001,	 903, 1503,	7),
+(2056,	"Licor de Menta Cognac Cusenier",	"200.0 ml",	325.0, 1004,	 904,	1512,	16),
+(2057,	"Crema Sapolan Aloe Vera",	"280.0 cc",	339.0,	1002,	906, 	1510,	7),
+(2058,	"Sapolan Color Villenueve", 	"280.0 gr",	229.0,	1002,	905, 	1510,	8)
+SAVEPOINT lote_5_8;
+
+ROLLBACK TO lote_1_4; 
+COMMIT;
+
+
